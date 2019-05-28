@@ -8,7 +8,7 @@ void setup() {
 int i = 0;
 
 void loop() {
-  Debug.debugPrint(DEBUG_LVL_INFO, "i = %d", i);
+  Debug.print(DEBUG_LVL_INFO, "i = %d", i);
   i++;
   delay(1000);
 }

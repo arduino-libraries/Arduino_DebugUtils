@@ -16,7 +16,7 @@ setDebugLevel	KEYWORD2
 setDebugOutputStream	KEYWORD2
 timestampOn	KEYWORD2
 timestampOff	KEYWORD2
-debugPrint	KEYWORD2
+print	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

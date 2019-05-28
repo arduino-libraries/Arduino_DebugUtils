@@ -59,7 +59,7 @@ namespace impl {
       void timestampOn();
       void timestampOff();
 
-      void debugPrint(int const debug_level, const char * fmt, ...);
+      void print(int const debug_level, const char * fmt, ...);
 
 
     private:
@@ -68,7 +68,7 @@ namespace impl {
       int       _debug_level;
       Stream *  _debug_output_stream;
 
-      void vDebugPrint(char const * fmt, va_list args);
+      void vPrint(char const * fmt, va_list args);
 
   };
 

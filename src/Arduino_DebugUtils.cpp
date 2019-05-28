@@ -64,7 +64,7 @@ namespace impl {
     _timestamp_on = false;
   }
 
-  void Arduino_DebugUtils::debugPrint(int const debug_level, const char * fmt, ...) {
+  void Arduino_DebugUtils::print(int const debug_level, const char * fmt, ...) {
     if (debug_level >= DEBUG_LVL_ERROR   &&
         debug_level <= DEBUG_LVL_VERBOSE &&
         debug_level <= _debug_level) {
@@ -76,7 +76,7 @@ namespace impl {
 
       va_list args;
       va_start(args, fmt);
-      vDebugPrint(fmt, args);
+      vPrint(fmt, args);
       va_end(args);
     }
   }
@@ -85,7 +85,7 @@ namespace impl {
      PRIVATE MEMBER FUNCTIONS
    ******************************************************************************/
 
-  void Arduino_DebugUtils::vDebugPrint(char const * fmt, va_list args) {
+  void Arduino_DebugUtils::vPrint(char const * fmt, va_list args) {
     static size_t const MSG_BUF_SIZE = 120;
     char msg_buf[MSG_BUF_SIZE] = {0};
 

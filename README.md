@@ -20,7 +20,7 @@ Example:
 ```C++
 int i = 1;
 float pi = 3.1459;
-ArduinoDebugUtils.debugPrint(DEBUG_LVL_VERBOSE, "i = %d, pi = %f, i, pi);
+Debug.print(DEBUG_LVL_VERBOSE, "i = %d, pi = %f, i, pi);
 ```
 
 If desired timestamps can be prefixed to the debug message. Timestamp output can be enabled and disabled via `timestampOn` and `timestampOff`.
