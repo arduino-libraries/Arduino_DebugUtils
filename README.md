@@ -5,22 +5,22 @@ This class provides functionality useful for debugging sketches via `printf`-sty
 
 # How-To-Use Basic
 ArduinoDebugUtils has 6 different debug levels (described descending from highest to lowest priority):
-* `DEBUG_LVL_NONE` - no debug output is shown
-* `DEBUG_LVL_ERROR` - critical errors
-* `DEBUG_LVL_WARNING` - non-critical errors
-* `DEBUG_LVL_INFO` - information
-* `DEBUG_LVL_DEBUG` - more information
-* `DEBUG_LVL_VERBOSE` - most information
+* `DBG_NONE` - no debug output is shown
+* `DBG_ERROR` - critical errors
+* `DBG_WARNING` - non-critical errors
+* `DBG_INFO` - information
+* `DBG_DEBUG` - more information
+* `DBG_VERBOSE` - most information
 
-The desired debug level can be set via `setDebugLevel(DEBUG_LVL_WARNING)`.
+The desired debug level can be set via `setDebugLevel(DBG_WARNING)`.
 
-Debug messages are written via `debugPrint` which supports `printf`-style formatted output.
+Debug messages are written via `print` which supports `printf`-style formatted output.
 
 Example:
 ```C++
 int i = 1;
 float pi = 3.1459;
-Debug.print(DEBUG_LVL_VERBOSE, "i = %d, pi = %f, i, pi);
+Debug.print(DBG_VERBOSE, "i = %d, pi = %f, i, pi);
 ```
 
 If desired timestamps can be prefixed to the debug message. Timestamp output can be enabled and disabled via `timestampOn` and `timestampOff`.

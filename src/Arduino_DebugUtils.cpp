@@ -25,7 +25,7 @@
    CONSTANTS
  ******************************************************************************/
 
-static int const DEFAULT_DEBUG_LEVEL   = DEBUG_LVL_INFO;
+static int const DEFAULT_DEBUG_LEVEL   = DBG_INFO;
 static Stream *  DEFAULT_OUTPUT_STREAM = &Serial;
 
 /******************************************************************************
@@ -59,8 +59,8 @@ void Arduino_DebugUtils::timestampOff() {
 }
 
 void Arduino_DebugUtils::print(int const debug_level, const char * fmt, ...) {
-  if (debug_level >= DEBUG_LVL_ERROR   &&
-      debug_level <= DEBUG_LVL_VERBOSE &&
+  if (debug_level >= DBG_ERROR   &&
+      debug_level <= DBG_VERBOSE &&
       debug_level <= _debug_level) {
     if (_timestamp_on) {
       char timestamp[20];
