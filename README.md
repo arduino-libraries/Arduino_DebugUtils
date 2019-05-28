@@ -4,7 +4,7 @@ ArduinoDebugUtils
 This class provides functionality useful for debugging sketches via `printf`-style statements.
 
 # How-To-Use Basic
-ArduinoDebugUtils has 6 different debug levels (described descending from highest to lowest priority):
+Arduino_DebugUtils has 6 different debug levels (described descending from highest to lowest priority):
 * `DBG_NONE` - no debug output is shown
 * `DBG_ERROR` - critical errors
 * `DBG_WARNING` - non-critical errors
