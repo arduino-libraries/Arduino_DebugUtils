@@ -11,7 +11,7 @@ int i = 0;
 
 void loop() {
 
-  ArduinoDebugUtils.debugPrint(DebugLevel::Info, "i = %d", i);
+  ArduinoDebugUtils.debugPrint(DEBUG_LVL_INFO, "i = %d", i);
   i++;
   delay(1000);
 }

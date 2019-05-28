@@ -32,8 +32,8 @@ namespace impl
    CONSTANTS
  ******************************************************************************/
 
-static DebugLevel const DEFAULT_DEBUG_LEVEL   = DebugLevel::Info;
-static Stream *         DEFAULT_OUTPUT_STREAM = &Serial;
+static int const DEFAULT_DEBUG_LEVEL   = DEBUG_LVL_INFO;
+static Stream *  DEFAULT_OUTPUT_STREAM = &Serial;
 
 /******************************************************************************
    CTOR/DTOR
@@ -50,7 +50,7 @@ ArduinoDebugUtils::ArduinoDebugUtils()
    PUBLIC MEMBER FUNCTIONS
  ******************************************************************************/
 
-void ArduinoDebugUtils::setDebugLevel(DebugLevel const debug_level)
+void ArduinoDebugUtils::setDebugLevel(int const debug_level)
 {
   _debug_level = debug_level;
 }
@@ -70,10 +70,10 @@ void ArduinoDebugUtils::timestampOff()
   _timestamp_on = false;
 }
 
-void ArduinoDebugUtils::debugPrint(DebugLevel const debug_level, const char * fmt, ...)
+void ArduinoDebugUtils::debugPrint(int const debug_level, const char * fmt, ...)
 {
-  if (debug_level >= DebugLevel::Error   &&
-      debug_level <= DebugLevel::Verbose &&
+  if (debug_level >= DEBUG_LVL_ERROR   &&
+      debug_level <= DEBUG_LVL_VERBOSE &&
       debug_level <= _debug_level)
   {
     if(_timestamp_on)

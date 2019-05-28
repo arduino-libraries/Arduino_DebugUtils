@@ -27,17 +27,15 @@
 #include <stdarg.h>
 
 /******************************************************************************
-   TYPEDEF
+   CONSTANTS
  ******************************************************************************/
 
-enum class DebugLevel : int {
-  None    = -1,
-  Error   =  0,
-  Warning =  1,
-  Info    =  2,
-  Debug   =  3,
-  Verbose =  4
-};
+static int const DEBUG_LVL_NONE    = -1;
+static int const DEBUG_LVL_ERROR   =  0;
+static int const DEBUG_LVL_WARNING =  1;
+static int const DEBUG_LVL_INFO    =  2;
+static int const DEBUG_LVL_DEBUG   =  3;
+static int const DEBUG_LVL_VERBOSE =  4;
 
 /******************************************************************************
    NAMESPACE
@@ -57,20 +55,20 @@ public:
 
   ArduinoDebugUtils();
 
-  void setDebugLevel(DebugLevel const debug_level);
+  void setDebugLevel(int const debug_level);
   void setDebugOutputStream(Stream * stream);
 
   void timestampOn();
   void timestampOff();
 
-  void debugPrint(DebugLevel const debug_level, const char * fmt, ...);
+  void debugPrint(int const debug_level, const char * fmt, ...);
 
 
 private:
 
-  bool          _timestamp_on;
-  DebugLevel    _debug_level;
-  Stream     *  _debug_output_stream;
+  bool      _timestamp_on;
+  int       _debug_level;
+  Stream *  _debug_output_stream;
 
   void vDebugPrint(char const * fmt, va_list args);
 
