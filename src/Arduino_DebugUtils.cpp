@@ -22,86 +22,74 @@
 #include "Arduino_DebugUtils.h"
 
 /******************************************************************************
-   NAMESPACE
+   CONSTANTS
  ******************************************************************************/
 
-namespace impl {
+static int const DEFAULT_DEBUG_LEVEL   = DEBUG_LVL_INFO;
+static Stream *  DEFAULT_OUTPUT_STREAM = &Serial;
 
-  /******************************************************************************
-     CONSTANTS
-   ******************************************************************************/
+/******************************************************************************
+   CTOR/DTOR
+ ******************************************************************************/
 
-  static int const DEFAULT_DEBUG_LEVEL   = DEBUG_LVL_INFO;
-  static Stream *  DEFAULT_OUTPUT_STREAM = &Serial;
+Arduino_DebugUtils::Arduino_DebugUtils() {
+  timestampOff();
+  setDebugLevel(DEFAULT_DEBUG_LEVEL);
+  setDebugOutputStream(DEFAULT_OUTPUT_STREAM);
+}
 
-  /******************************************************************************
-     CTOR/DTOR
-   ******************************************************************************/
+/******************************************************************************
+   PUBLIC MEMBER FUNCTIONS
+ ******************************************************************************/
 
-  Arduino_DebugUtils::Arduino_DebugUtils() {
-    timestampOff();
-    setDebugLevel(DEFAULT_DEBUG_LEVEL);
-    setDebugOutputStream(DEFAULT_OUTPUT_STREAM);
-  }
+void Arduino_DebugUtils::setDebugLevel(int const debug_level) {
+  _debug_level = debug_level;
+}
 
-  /******************************************************************************
-     PUBLIC MEMBER FUNCTIONS
-   ******************************************************************************/
+void Arduino_DebugUtils::setDebugOutputStream(Stream * stream) {
+  _debug_output_stream = stream;
+}
 
-  void Arduino_DebugUtils::setDebugLevel(int const debug_level) {
-    _debug_level = debug_level;
-  }
+void Arduino_DebugUtils::timestampOn() {
+  _timestamp_on = true;
+}
 
-  void Arduino_DebugUtils::setDebugOutputStream(Stream * stream) {
-    _debug_output_stream = stream;
-  }
+void Arduino_DebugUtils::timestampOff() {
+  _timestamp_on = false;
+}
 
-  void Arduino_DebugUtils::timestampOn() {
-    _timestamp_on = true;
-  }
-
-  void Arduino_DebugUtils::timestampOff() {
-    _timestamp_on = false;
-  }
-
-  void Arduino_DebugUtils::print(int const debug_level, const char * fmt, ...) {
-    if (debug_level >= DEBUG_LVL_ERROR   &&
-        debug_level <= DEBUG_LVL_VERBOSE &&
-        debug_level <= _debug_level) {
-      if (_timestamp_on) {
-        char timestamp[20];
-        snprintf(timestamp, 20, "[ %lu ] ", millis());
-        _debug_output_stream->print(timestamp);
-      }
-
-      va_list args;
-      va_start(args, fmt);
-      vPrint(fmt, args);
-      va_end(args);
+void Arduino_DebugUtils::print(int const debug_level, const char * fmt, ...) {
+  if (debug_level >= DEBUG_LVL_ERROR   &&
+      debug_level <= DEBUG_LVL_VERBOSE &&
+      debug_level <= _debug_level) {
+    if (_timestamp_on) {
+      char timestamp[20];
+      snprintf(timestamp, 20, "[ %lu ] ", millis());
+      _debug_output_stream->print(timestamp);
     }
+
+    va_list args;
+    va_start(args, fmt);
+    vPrint(fmt, args);
+    va_end(args);
   }
+}
 
-  /******************************************************************************
-     PRIVATE MEMBER FUNCTIONS
-   ******************************************************************************/
+/******************************************************************************
+   PRIVATE MEMBER FUNCTIONS
+ ******************************************************************************/
 
-  void Arduino_DebugUtils::vPrint(char const * fmt, va_list args) {
-    static size_t const MSG_BUF_SIZE = 120;
-    char msg_buf[MSG_BUF_SIZE] = {0};
+void Arduino_DebugUtils::vPrint(char const * fmt, va_list args) {
+  static size_t const MSG_BUF_SIZE = 120;
+  char msg_buf[MSG_BUF_SIZE] = {0};
 
-    vsnprintf(msg_buf, MSG_BUF_SIZE, fmt, args);
+  vsnprintf(msg_buf, MSG_BUF_SIZE, fmt, args);
 
-    _debug_output_stream->println(msg_buf);
-  }
-
-  /******************************************************************************
-     NAMESPACE
-   ******************************************************************************/
-
-} /* impl */
+  _debug_output_stream->println(msg_buf);
+}
 
 /******************************************************************************
    CLASS INSTANTIATION
  ******************************************************************************/
 
-impl::Arduino_DebugUtils Debug;
+Arduino_DebugUtils Debug;

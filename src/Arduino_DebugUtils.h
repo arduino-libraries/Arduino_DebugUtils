@@ -38,50 +38,38 @@ static int const DEBUG_LVL_DEBUG   =  3;
 static int const DEBUG_LVL_VERBOSE =  4;
 
 /******************************************************************************
-   NAMESPACE
+   CLASS DECLARATION
  ******************************************************************************/
 
-namespace impl {
+class Arduino_DebugUtils {
 
-  /******************************************************************************
-     CLASS DECLARATION
-   ******************************************************************************/
+  public:
 
-  class Arduino_DebugUtils {
+    Arduino_DebugUtils();
 
-    public:
+    void setDebugLevel(int const debug_level);
+    void setDebugOutputStream(Stream * stream);
 
-      Arduino_DebugUtils();
+    void timestampOn();
+    void timestampOff();
 
-      void setDebugLevel(int const debug_level);
-      void setDebugOutputStream(Stream * stream);
-
-      void timestampOn();
-      void timestampOff();
-
-      void print(int const debug_level, const char * fmt, ...);
+    void print(int const debug_level, const char * fmt, ...);
 
 
-    private:
+  private:
 
-      bool      _timestamp_on;
-      int       _debug_level;
-      Stream *  _debug_output_stream;
+    bool      _timestamp_on;
+    int       _debug_level;
+    Stream *  _debug_output_stream;
 
-      void vPrint(char const * fmt, va_list args);
+    void vPrint(char const * fmt, va_list args);
 
-  };
-
-  /******************************************************************************
-     NAMESPACE
-   ******************************************************************************/
-
-} /* impl */
+};
 
 /******************************************************************************
    EXTERN
  ******************************************************************************/
 
-extern impl::Arduino_DebugUtils Debug;
+extern Arduino_DebugUtils Debug;
 
 #endif /* ARDUINO_DEBUG_UTILS_H_ */
