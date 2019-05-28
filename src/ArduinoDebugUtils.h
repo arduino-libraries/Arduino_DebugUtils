@@ -24,6 +24,8 @@
 
 #include <Arduino.h>
 
+#include <stdarg.h>
+
 /******************************************************************************
    TYPEDEF
  ******************************************************************************/
@@ -36,6 +38,13 @@ enum class DebugLevel : int {
   Debug   =  3,
   Verbose =  4
 };
+
+/******************************************************************************
+   NAMESPACE
+ ******************************************************************************/
+
+namespace impl
+{
 
 /******************************************************************************
    CLASS DECLARATION
@@ -61,15 +70,22 @@ private:
 
   bool          _timestamp_on;
   DebugLevel    _debug_level;
-  Stream     *  _debug_output_stream = &Serial;
-
-
-  static DebugLevel const DEFAULT_DEBUG_LEVEL   = DebugLevel::Info;
-  static Stream *         DEFAULT_OUTPUT_STREAM = &Serial;
-
+  Stream     *  _debug_output_stream;
 
   void vDebugPrint(char const * fmt, va_list args);
 
 };
+
+/******************************************************************************
+   NAMESPACE
+ ******************************************************************************/
+
+} /* impl */
+
+/******************************************************************************
+   EXTERN
+ ******************************************************************************/
+
+extern impl::ArduinoDebugUtils ArduinoDebugUtils;
 
 #endif /* ARDUINO_DEBUG_UTILS_H_ */

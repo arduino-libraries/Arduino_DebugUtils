@@ -22,6 +22,20 @@
 #include "ArduinoDebugUtils.h"
 
 /******************************************************************************
+   NAMESPACE
+ ******************************************************************************/
+
+namespace impl
+{
+
+/******************************************************************************
+   CONSTANTS
+ ******************************************************************************/
+
+static DebugLevel const DEFAULT_DEBUG_LEVEL   = DebugLevel::Info;
+static Stream *         DEFAULT_OUTPUT_STREAM = &Serial;
+
+/******************************************************************************
    CTOR/DTOR
  ******************************************************************************/
 
@@ -66,7 +80,7 @@ void ArduinoDebugUtils::debugPrint(DebugLevel const debug_level, const char * fm
     {
       char timestamp[20];
       snprintf(timestamp, 20, "[ %lu ] ", millis());
-      debug_output_stream->print(timestamp);
+      _debug_output_stream->print(timestamp);
     }
 
     va_list args;
@@ -89,3 +103,15 @@ void ArduinoDebugUtils::vDebugPrint(char const * fmt, va_list args)
 
   _debug_output_stream->println(msg_buf);
 }
+
+/******************************************************************************
+   NAMESPACE
+ ******************************************************************************/
+
+} /* impl */
+
+/******************************************************************************
+   CLASS INSTANTIATION
+ ******************************************************************************/
+
+impl::ArduinoDebugUtils ArduinoDebugUtils;
