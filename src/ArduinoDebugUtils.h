@@ -41,42 +41,40 @@ static int const DEBUG_LVL_VERBOSE =  4;
    NAMESPACE
  ******************************************************************************/
 
-namespace impl
-{
+namespace impl {
 
-/******************************************************************************
-   CLASS DECLARATION
- ******************************************************************************/
+  /******************************************************************************
+     CLASS DECLARATION
+   ******************************************************************************/
 
-class ArduinoDebugUtils
-{
+  class ArduinoDebugUtils {
 
-public:
+    public:
 
-  ArduinoDebugUtils();
+      ArduinoDebugUtils();
 
-  void setDebugLevel(int const debug_level);
-  void setDebugOutputStream(Stream * stream);
+      void setDebugLevel(int const debug_level);
+      void setDebugOutputStream(Stream * stream);
 
-  void timestampOn();
-  void timestampOff();
+      void timestampOn();
+      void timestampOff();
 
-  void debugPrint(int const debug_level, const char * fmt, ...);
+      void debugPrint(int const debug_level, const char * fmt, ...);
 
 
-private:
+    private:
 
-  bool      _timestamp_on;
-  int       _debug_level;
-  Stream *  _debug_output_stream;
+      bool      _timestamp_on;
+      int       _debug_level;
+      Stream *  _debug_output_stream;
 
-  void vDebugPrint(char const * fmt, va_list args);
+      void vDebugPrint(char const * fmt, va_list args);
 
-};
+  };
 
-/******************************************************************************
-   NAMESPACE
- ******************************************************************************/
+  /******************************************************************************
+     NAMESPACE
+   ******************************************************************************/
 
 } /* impl */
 

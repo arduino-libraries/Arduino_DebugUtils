@@ -1,7 +1,6 @@
 #include "ArduinoDebugUtils.h"
 
 void setup() {
-  
   Serial.begin(9600);
 
   ArduinoDebugUtils.timestampOn();
