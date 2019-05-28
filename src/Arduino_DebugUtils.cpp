@@ -1,5 +1,5 @@
 /*
-   This file is part of ArduinoDebugUtils.
+   This file is part of Arduino_DebugUtils.
 
    Copyright 2019 ARDUINO SA (http://www.arduino.cc/)
 
