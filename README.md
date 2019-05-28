@@ -12,7 +12,7 @@ ArduinoDebugUtils has 6 different debug levels (described descending from highes
 * `DEBUG_LVL_DEBUG` - more information
 * `DEBUG_LVL_VERBOSE` - most information
 
-The desired debug level can be set via `setDebugLevel(DebugLevel::Warning)`.
+The desired debug level can be set via `setDebugLevel(DEBUG_LVL_WARNING)`.
 
 Debug messages are written via `debugPrint` which supports `printf`-style formatted output.
 
