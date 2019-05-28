@@ -1,12 +1,12 @@
 #######################################
-# Syntax Coloring Map For ArduinoDebugUtils
+# Syntax Coloring Map For Arduino_DebugUtils
 #######################################
 
 #######################################
 # Class (KEYWORD1)
 #######################################
 
-ArduinoDebugUtils	KEYWORD1
+Debug	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)

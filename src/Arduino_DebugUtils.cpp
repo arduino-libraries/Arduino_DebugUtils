@@ -19,7 +19,7 @@
    INCLUDE
  ******************************************************************************/
 
-#include "ArduinoDebugUtils.h"
+#include "Arduino_DebugUtils.h"
 
 /******************************************************************************
    NAMESPACE
@@ -38,7 +38,7 @@ namespace impl {
      CTOR/DTOR
    ******************************************************************************/
 
-  ArduinoDebugUtils::ArduinoDebugUtils() {
+  Arduino_DebugUtils::Arduino_DebugUtils() {
     timestampOff();
     setDebugLevel(DEFAULT_DEBUG_LEVEL);
     setDebugOutputStream(DEFAULT_OUTPUT_STREAM);
@@ -48,23 +48,23 @@ namespace impl {
      PUBLIC MEMBER FUNCTIONS
    ******************************************************************************/
 
-  void ArduinoDebugUtils::setDebugLevel(int const debug_level) {
+  void Arduino_DebugUtils::setDebugLevel(int const debug_level) {
     _debug_level = debug_level;
   }
 
-  void ArduinoDebugUtils::setDebugOutputStream(Stream * stream) {
+  void Arduino_DebugUtils::setDebugOutputStream(Stream * stream) {
     _debug_output_stream = stream;
   }
 
-  void ArduinoDebugUtils::timestampOn() {
+  void Arduino_DebugUtils::timestampOn() {
     _timestamp_on = true;
   }
 
-  void ArduinoDebugUtils::timestampOff() {
+  void Arduino_DebugUtils::timestampOff() {
     _timestamp_on = false;
   }
 
-  void ArduinoDebugUtils::debugPrint(int const debug_level, const char * fmt, ...) {
+  void Arduino_DebugUtils::debugPrint(int const debug_level, const char * fmt, ...) {
     if (debug_level >= DEBUG_LVL_ERROR   &&
         debug_level <= DEBUG_LVL_VERBOSE &&
         debug_level <= _debug_level) {
@@ -85,7 +85,7 @@ namespace impl {
      PRIVATE MEMBER FUNCTIONS
    ******************************************************************************/
 
-  void ArduinoDebugUtils::vDebugPrint(char const * fmt, va_list args) {
+  void Arduino_DebugUtils::vDebugPrint(char const * fmt, va_list args) {
     static size_t const MSG_BUF_SIZE = 120;
     char msg_buf[MSG_BUF_SIZE] = {0};
 
@@ -104,4 +104,4 @@ namespace impl {
    CLASS INSTANTIATION
  ******************************************************************************/
 
-impl::ArduinoDebugUtils ArduinoDebugUtils;
+impl::Arduino_DebugUtils Debug;

@@ -47,11 +47,11 @@ namespace impl {
      CLASS DECLARATION
    ******************************************************************************/
 
-  class ArduinoDebugUtils {
+  class Arduino_DebugUtils {
 
     public:
 
-      ArduinoDebugUtils();
+      Arduino_DebugUtils();
 
       void setDebugLevel(int const debug_level);
       void setDebugOutputStream(Stream * stream);
@@ -82,6 +82,6 @@ namespace impl {
    EXTERN
  ******************************************************************************/
 
-extern impl::ArduinoDebugUtils ArduinoDebugUtils;
+extern impl::Arduino_DebugUtils Debug;
 
 #endif /* ARDUINO_DEBUG_UTILS_H_ */

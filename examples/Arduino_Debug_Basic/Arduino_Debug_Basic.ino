@@ -1,16 +1,14 @@
-#include "ArduinoDebugUtils.h"
+#include "Arduino_DebugUtils.h"
 
 void setup() {
   Serial.begin(9600);
-
-  ArduinoDebugUtils.timestampOn();
+  Debug.timestampOn();
 }
 
 int i = 0;
 
 void loop() {
-
-  ArduinoDebugUtils.debugPrint(DEBUG_LVL_INFO, "i = %d", i);
+  Debug.debugPrint(DEBUG_LVL_INFO, "i = %d", i);
   i++;
   delay(1000);
 }
