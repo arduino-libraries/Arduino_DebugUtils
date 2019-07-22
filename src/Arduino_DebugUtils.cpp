@@ -93,4 +93,6 @@ void Arduino_DebugUtils::vPrint(char const * fmt, va_list args) {
  ******************************************************************************/
 
 Arduino_DebugUtils Debug;
-void setDebugMessageLevel(int const debug_level) { Debug.setDebugLevel(debug_level); }
+void setDebugMessageLevel(int const debug_level) {
+  Debug.setDebugLevel(debug_level);
+}
