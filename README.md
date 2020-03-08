@@ -47,7 +47,7 @@ SoftwareSerial mySerial(10, 11); // RX, TX
 Debug.setDebugOutputStream(&mySerial);
 ```
 ### 3. Debug.timestampOn() :
-Calling this function will switches on the timestamp in `Debug.print()` function call;
+Calling this function switches on the timestamp in the `Debug.print()` function call;
 By default, printing timestamp is off, unless turned on using this function call.
 
 ### 4. Debug.timestampOff() :
