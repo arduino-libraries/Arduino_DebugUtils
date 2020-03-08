@@ -54,7 +54,7 @@ By default, printing timestamp is off, unless turned on using this function call
 Calling this function switches off the timestamp in the `Debug.print()` function call;
 
 ### 5. Debug.print(int const debug_level, const char * fmt, ...);
-This function assess the debug_level and prints the message if parameter `debug_level` in `Debug.print(debug_level, ...)` function call belongs to the range: DBG_ERROR <= debug_level <= (<DBG_LEVEL> that has been set using setDebugLevel() function).
+This function prints the message if parameter `debug_level` in the `Debug.print(debug_level, ...)` function call belongs to the range: DBG_ERROR <= debug_level <= (<DBG_LEVEL> that has been set using `setDebugLevel()` function).
 Example:
 ```
 Debug.setDebugLevel(DBG_VERBOSE);
