@@ -4,7 +4,7 @@
  * or a wireless sensor like Xbee is connected to the serial port 
  * that will send data wirelessly to other Xbee node.
  * 
- * In boards like Ardunino Nano, UNO, MEGA only one serial port is available,
+ * In boards like Arduino Nano, UNO, MEGA only one serial port is available,
  * therefore additional Software Serial ports can be made using SoftwareSerial
  */
 
