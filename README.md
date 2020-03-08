@@ -43,6 +43,7 @@ Debug.setDebugLevel(DBG_VERBOSE);
 ```
 ### 2. Debug.setDebugOutputStream(Stream * stream) :
 By default, Output Stream is Serial. In advanced cases other objects could be other serial ports (if available), or can be a Software Serial object.
+
 Example:
 ```
 SoftwareSerial mySerial(10, 11); // RX, TX
