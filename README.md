@@ -34,7 +34,9 @@ Arduino_DebugUtils Object that will be used for calling member functions.
 
 ### 2. Debug.setDebugLevel(int const debug_level) :
 Parameter debug_level in order of lowest to highest priority are : `DBG_NONE`, `DBG_ERROR`, `DBG_WARNING`, `DBG_INFO` (default), `DBG_DEBUG`, and `DBG_VERBOSE`. 
+
 Return type: void.
+
 Example:
 ```
 Debug.setDebugLevel(DBG_VERBOSE);
