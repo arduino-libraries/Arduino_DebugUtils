@@ -29,10 +29,10 @@ If desired timestamps can be prefixed to the debug message. Timestamp output can
 Normally all debug output is redirected to the primary serial output of each board (`Serial`). In case you want to redirect the output to another output stream you can make use of `setDebugOutputStream(&Serial2)`.
 
 # Documentation
-### 1. Debug :
+### Debug :
 Arduino_DebugUtils Object that will be used for calling member functions.
 
-### 2. Debug.setDebugLevel(int const debug_level) :
+### Debug.setDebugLevel(int const debug_level) :
 Parameter debug_level in order of lowest to highest priority are : `DBG_NONE`, `DBG_ERROR`, `DBG_WARNING`, `DBG_INFO` (default), `DBG_DEBUG`, and `DBG_VERBOSE`. 
 
 Return type: void.
@@ -41,23 +41,45 @@ Example:
 ```
 Debug.setDebugLevel(DBG_VERBOSE);
 ```
-### 2. Debug.setDebugOutputStream(Stream * stream) :
+### Debug.setDebugOutputStream(Stream * stream) :
 By default, Output Stream is Serial. In advanced cases other objects could be other serial ports (if available), or can be a Software Serial object.
+
+Return type: void.
 
 Example:
 ```
 SoftwareSerial mySerial(10, 11); // RX, TX
 Debug.setDebugOutputStream(&mySerial);
 ```
-### 3. Debug.timestampOn() :
+### Debug.timestampOn() :
 Calling this function switches on the timestamp in the `Debug.print()` function call;
 By default, printing timestamp is off, unless turned on using this function call.
 
-### 4. Debug.timestampOff() :
+Return type: void.
+
+Example:
+```
+Debug.timestampOn();
+Debug.print(DBG_VERBOSE, "i = %d", i); //Output looks like : [ 21007 ] i = 21 
+```
+
+### Debug.timestampOff() :
 Calling this function switches off the timestamp in the `Debug.print()` function call;
 
-### 5. Debug.print(int const debug_level, const char * fmt, ...);
+Return type: void.
+
+Example:
+```
+Debug.timestampOff();
+Debug.print(DBG_VERBOSE, "i = %d", i); //Output looks like : i = 21 
+```
+
+
+### Debug.print(int const debug_level, const char * fmt, ...);
 This function prints the message if parameter `debug_level` in the `Debug.print(debug_level, ...)` function call belongs to the range: DBG_ERROR <= debug_level <= (<DBG_LEVEL> that has been set using `setDebugLevel()` function).
+
+Return type: void.
+
 Example:
 ```
 Debug.setDebugLevel(DBG_VERBOSE);
