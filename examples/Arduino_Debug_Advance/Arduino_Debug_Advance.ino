@@ -5,7 +5,7 @@
  * that will send data wirelessly to other Xbee node.
  * 
  * In boards like Ardunino Nano, UNO, MEGA only one serial port is available,
- * therefore additional Software Serial ports can be made usinf SoftwareSerial
+ * therefore additional Software Serial ports can be made using SoftwareSerial
  */
 
 #include "Arduino_DebugUtils.h"
