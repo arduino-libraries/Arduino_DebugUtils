@@ -68,6 +68,7 @@ class Arduino_DebugUtils {
 
     void vPrint(char const * fmt, va_list args);
     void printTimestamp();
+    bool shouldPrint(int const debug_level) const;
 
 };
 

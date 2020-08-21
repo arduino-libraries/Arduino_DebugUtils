@@ -60,36 +60,32 @@ void Arduino_DebugUtils::timestampOff() {
 
 void Arduino_DebugUtils::print(int const debug_level, const char * fmt, ...)
 {
-  if (debug_level >= DBG_ERROR   &&
-      debug_level <= DBG_VERBOSE &&
-      debug_level <= _debug_level)
-  {
-    if (_timestamp_on)
-      printTimestamp();
+  if (!shouldPrint(debug_level))
+    return;
 
-    va_list args;
-    va_start(args, fmt);
-    vPrint(fmt, args);
-    va_end(args);
-  }
+  if (_timestamp_on)
+    printTimestamp();
+
+  va_list args;
+  va_start(args, fmt);
+  vPrint(fmt, args);
+  va_end(args);
 }
 
 void Arduino_DebugUtils::print(int const debug_level, const __FlashStringHelper * fmt, ...)
 {
-  if (debug_level >= DBG_ERROR   &&
-      debug_level <= DBG_VERBOSE &&
-      debug_level <= _debug_level)
-  {
-    if (_timestamp_on)
-      printTimestamp();
+  if (!shouldPrint(debug_level))
+    return;
 
-    String fmt_str(fmt);
+  if (_timestamp_on)
+    printTimestamp();
 
-    va_list args;
-    va_start(args, fmt_str.c_str());
-    vPrint(fmt_str.c_str(), args);
-    va_end(args);
-  }
+  String fmt_str(fmt);
+
+  va_list args;
+  va_start(args, fmt_str.c_str());
+  vPrint(fmt_str.c_str(), args);
+  va_end(args);
 }
 
 /******************************************************************************
@@ -110,6 +106,11 @@ void Arduino_DebugUtils::printTimestamp()
   char timestamp[20];
   snprintf(timestamp, 20, "[ %lu ] ", millis());
   _debug_output_stream->print(timestamp);
+}
+
+bool Arduino_DebugUtils::shouldPrint(int const debug_level) const
+{
+  return ((debug_level >= DBG_ERROR) && (debug_level <= DBG_VERBOSE) && (debug_level <= _debug_level));
 }
 
 /******************************************************************************
