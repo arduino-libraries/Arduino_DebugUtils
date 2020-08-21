@@ -57,6 +57,7 @@ class Arduino_DebugUtils {
     void timestampOff();
 
     void print(int const debug_level, const char * fmt, ...);
+    void print(int const debug_level, const __FlashStringHelper * fmt, ...);
 
 
   private:
