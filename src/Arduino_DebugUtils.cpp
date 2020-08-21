@@ -65,11 +65,7 @@ void Arduino_DebugUtils::print(int const debug_level, const char * fmt, ...)
       debug_level <= _debug_level)
   {
     if (_timestamp_on)
-    {
-      char timestamp[20];
-      snprintf(timestamp, 20, "[ %lu ] ", millis());
-      _debug_output_stream->print(timestamp);
-    }
+      printTimestamp();
 
     va_list args;
     va_start(args, fmt);
@@ -85,11 +81,7 @@ void Arduino_DebugUtils::print(int const debug_level, const __FlashStringHelper 
       debug_level <= _debug_level)
   {
     if (_timestamp_on)
-    {
-      char timestamp[20];
-      snprintf(timestamp, 20, "[ %lu ] ", millis());
-      _debug_output_stream->print(timestamp);
-    }
+      printTimestamp();
 
     String fmt_str(fmt);
 
@@ -111,6 +103,13 @@ void Arduino_DebugUtils::vPrint(char const * fmt, va_list args) {
   vsnprintf(msg_buf, MSG_BUF_SIZE, fmt, args);
 
   _debug_output_stream->println(msg_buf);
+}
+
+void Arduino_DebugUtils::printTimestamp()
+{
+  char timestamp[20];
+  snprintf(timestamp, 20, "[ %lu ] ", millis());
+  _debug_output_stream->print(timestamp);
 }
 
 /******************************************************************************

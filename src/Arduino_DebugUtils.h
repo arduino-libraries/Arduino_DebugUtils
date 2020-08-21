@@ -67,6 +67,7 @@ class Arduino_DebugUtils {
     Stream *  _debug_output_stream;
 
     void vPrint(char const * fmt, va_list args);
+    void printTimestamp();
 
 };
 
