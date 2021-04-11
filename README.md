@@ -2,6 +2,7 @@ Arduino_DebugUtils
 ==================
 
 [![Check Arduino status](https://github.com/arduino-libraries/Arduino_DebugUtils/actions/workflows/check-arduino.yml/badge.svg)](https://github.com/arduino-libraries/Arduino_DebugUtils/actions/workflows/check-arduino.yml)
+[![Compile Examples status](https://github.com/arduino-libraries/Arduino_DebugUtils/actions/workflows/compile-examples.yml/badge.svg)](https://github.com/arduino-libraries/Arduino_DebugUtils/actions/workflows/compile-examples.yml)
 [![Spell Check status](https://github.com/arduino-libraries/Arduino_DebugUtils/actions/workflows/spell-check.yml/badge.svg)](https://github.com/arduino-libraries/Arduino_DebugUtils/actions/workflows/spell-check.yml)
 
 This class provides functionality useful for debugging sketches via `printf`-style statements.
