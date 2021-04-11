@@ -1,11 +1,12 @@
 /*
    Advanced Debug can be helpful in embedded applications when
-   there are more that two microcontrollers connected serially
+   there are more than two microcontrollers connected serially
    or a wireless sensor like XBee is connected to the serial port
-   that will send data wirelessly to other XBee node.
+   that will send data wirelessly to other XBee nodes.
 
-   In boards like Arduino Nano, UNO, MEGA only one serial port is available,
-   therefore additional Software Serial ports can be made using SoftwareSerial
+   In boards like Arduino Nano, UNO, or MEGA only one serial port is available,
+   therefore additional software serial ports can be made using the
+   SoftwareSerial library.
 */
 
 #include "Arduino_DebugUtils.h"
