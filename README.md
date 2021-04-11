@@ -1,6 +1,8 @@
 Arduino_DebugUtils
 ==================
 
+[![Spell Check status](https://github.com/arduino-libraries/Arduino_DebugUtils/actions/workflows/spell-check.yml/badge.svg)](https://github.com/arduino-libraries/Arduino_DebugUtils/actions/workflows/spell-check.yml)
+
 This class provides functionality useful for debugging sketches via `printf`-style statements.
 
 # How-To-Use Basic

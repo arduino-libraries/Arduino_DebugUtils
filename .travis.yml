@@ -10,17 +10,6 @@ matrix:
         - BOARD="arduino:samd:mkrwifi1010"
     - env:
         - BOARD="arduino:samd:mkrgsm1400"
-    - env:
-        - NAME=Spell Check
-      language: python
-      python: 3.6
-      # must define an empty before_install phase, otherwise the default one is used
-      before_install: true
-      install:
-        # https://github.com/codespell-project/codespell
-        - pip install codespell
-      script:
-        - codespell --skip="${TRAVIS_BUILD_DIR}/.git" --ignore-words="${TRAVIS_BUILD_DIR}/extras/codespell-ignore-words-list.txt" "${TRAVIS_BUILD_DIR}"
 # default phases
 before_install:
   - wget http://downloads.arduino.cc/arduino-cli/arduino-cli-$CLI_VERSION-linux64.tar.bz2
