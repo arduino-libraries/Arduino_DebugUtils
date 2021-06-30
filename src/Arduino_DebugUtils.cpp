@@ -83,7 +83,7 @@ void Arduino_DebugUtils::print(int const debug_level, const __FlashStringHelper 
   String fmt_str(fmt);
 
   va_list args;
-  va_start(args, fmt_str.c_str());
+  va_start(args, fmt);
   vPrint(fmt_str.c_str(), args);
   va_end(args);
 }
