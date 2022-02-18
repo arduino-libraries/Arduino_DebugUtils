@@ -78,6 +78,26 @@ Debug.timestampOff();
 Debug.print(DBG_VERBOSE, "i = %d", i); //Output looks like : i = 21 
 ```
 
+### Debug.newlineOn() :
+Calling this function ensures that a newline will be sent at the end of the `Debug.print()` function call;
+By default, a newline is sent
+Return type: void.
+
+Example:
+```
+Debug.newlineOn();
+```
+
+### Debug.newlineOff() :
+Calling this function ensure that a newline will NOT be sent at the end of the `Debug.print()` function call;
+By default a newline is sent. Call this to shut that functionality off.
+Return type: void.
+
+Example:
+```
+Debug.timestampOff();
+```
+
 
 ### Debug.print(int const debug_level, const char * fmt, ...);
 This function prints the message if parameter `debug_level` in the `Debug.print(debug_level, ...)` function call belongs to the range: DBG_ERROR <= debug_level <= (<DBG_LEVEL> that has been set using `setDebugLevel()` function).
