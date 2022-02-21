@@ -34,6 +34,7 @@ static Stream *  DEFAULT_OUTPUT_STREAM = &Serial;
 
 Arduino_DebugUtils::Arduino_DebugUtils() {
   timestampOff();
+  newlineOn();
   setDebugLevel(DEFAULT_DEBUG_LEVEL);
   setDebugOutputStream(DEFAULT_OUTPUT_STREAM);
 }
@@ -48,6 +49,14 @@ void Arduino_DebugUtils::setDebugLevel(int const debug_level) {
 
 void Arduino_DebugUtils::setDebugOutputStream(Stream * stream) {
   _debug_output_stream = stream;
+}
+
+void Arduino_DebugUtils::newlineOn() {
+    _newline_on = true;
+}
+
+void Arduino_DebugUtils::newlineOff() {
+    _newline_on = false;
 }
 
 void Arduino_DebugUtils::timestampOn() {
@@ -98,7 +107,11 @@ void Arduino_DebugUtils::vPrint(char const * fmt, va_list args) {
 
   vsnprintf(msg_buf, MSG_BUF_SIZE, fmt, args);
 
-  _debug_output_stream->println(msg_buf);
+  if (_newline_on) {
+    _debug_output_stream->println(msg_buf);
+  } else {
+    _debug_output_stream->print(msg_buf);
+  }
 }
 
 void Arduino_DebugUtils::printTimestamp()
