@@ -102,16 +102,27 @@ void Arduino_DebugUtils::print(int const debug_level, const __FlashStringHelper 
  ******************************************************************************/
 
 void Arduino_DebugUtils::vPrint(char const * fmt, va_list args) {
-  static size_t const MSG_BUF_SIZE = 120;
-  char msg_buf[MSG_BUF_SIZE] = {0};
+  // calculate required buffer length
+  int msg_buf_size = vsnprintf(nullptr, 0, fmt, args) + 1; // add one for null terminator
+#if __STDC_NO_VLA__ == 1
+  // in the rare case where VLA is not allowed by compiler, fall back on heap-allocated memory
+  char * msg_buf = new char[msg_buf_size];
+#else
+  char msg_buf[msg_buf_size] = {0};
+#endif
 
-  vsnprintf(msg_buf, MSG_BUF_SIZE, fmt, args);
+  vsnprintf(msg_buf, msg_buf_size, fmt, args);
 
   if (_newline_on) {
     _debug_output_stream->println(msg_buf);
   } else {
     _debug_output_stream->print(msg_buf);
   }
+
+#if __STDC_NO_VLA__ == 1
+  // remember to clean up memory
+  delete[] msg_buf;
+#endif
 }
 
 void Arduino_DebugUtils::printTimestamp()
