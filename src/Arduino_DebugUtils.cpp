@@ -108,7 +108,7 @@ void Arduino_DebugUtils::vPrint(char const * fmt, va_list args) {
   // in the rare case where VLA is not allowed by compiler, fall back on heap-allocated memory
   char * msg_buf = new char[msg_buf_size];
 #else
-  char msg_buf[msg_buf_size] = {0};
+  char msg_buf[msg_buf_size];
 #endif
 
   vsnprintf(msg_buf, msg_buf_size, fmt, args);
