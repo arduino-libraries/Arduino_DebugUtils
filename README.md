@@ -26,6 +26,7 @@ int i = 1;
 float pi = 3.1459;
 Debug.print(DBG_VERBOSE, "i = %d, pi = %f", i, pi);
 ```
+**Note**: The output of floating point numbers (`%f`) does NOT work on [ArduinoCore-avr](https://github.com/arduino/ArduinoCore-avr).
 
 If desired, timestamps can be prefixed to the debug message. Timestamp output can be enabled and disabled via `timestampOn` and `timestampOff`.
 
