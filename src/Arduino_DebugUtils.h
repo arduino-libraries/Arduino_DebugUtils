@@ -61,6 +61,9 @@ class Arduino_DebugUtils {
     void newlineOn();
     void newlineOff();
 
+    void debugLabelOn();
+    void debugLabelOff();
+
     void print(int const debug_level, const char * fmt, ...);
     void print(int const debug_level, const __FlashStringHelper * fmt, ...);
 
@@ -69,11 +72,13 @@ class Arduino_DebugUtils {
 
     bool      _timestamp_on;
     bool      _newline_on;
+    bool      _print_debug_label;
     int       _debug_level;
     Stream *  _debug_output_stream;
 
     void vPrint(char const * fmt, va_list args);
     void printTimestamp();
+    void printDebugLabel(int const debug_level);
     bool shouldPrint(int const debug_level) const;
 
 };

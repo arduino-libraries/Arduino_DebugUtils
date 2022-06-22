@@ -35,6 +35,7 @@ static Stream *  DEFAULT_OUTPUT_STREAM = &Serial;
 Arduino_DebugUtils::Arduino_DebugUtils() {
   timestampOff();
   newlineOn();
+  debugLabelOff();
   setDebugLevel(DEFAULT_DEBUG_LEVEL);
   setDebugOutputStream(DEFAULT_OUTPUT_STREAM);
 }
@@ -63,6 +64,14 @@ void Arduino_DebugUtils::newlineOff() {
     _newline_on = false;
 }
 
+void Arduino_DebugUtils::debugLabelOn() {
+  _print_debug_label = true;
+}
+
+void Arduino_DebugUtils::debugLabelOff() {
+  _print_debug_label = false;
+}
+
 void Arduino_DebugUtils::timestampOn() {
   _timestamp_on = true;
 }
@@ -75,6 +84,9 @@ void Arduino_DebugUtils::print(int const debug_level, const char * fmt, ...)
 {
   if (!shouldPrint(debug_level))
     return;
+
+  if (_print_debug_label)
+    printDebugLabel(debug_level);
 
   if (_timestamp_on)
     printTimestamp();
@@ -89,6 +101,9 @@ void Arduino_DebugUtils::print(int const debug_level, const __FlashStringHelper 
 {
   if (!shouldPrint(debug_level))
     return;
+
+  if (_print_debug_label)
+    printDebugLabel(debug_level);
 
   if (_timestamp_on)
     printTimestamp();
@@ -134,6 +149,24 @@ void Arduino_DebugUtils::printTimestamp()
   char timestamp[20];
   snprintf(timestamp, 20, "[ %lu ] ", millis());
   _debug_output_stream->print(timestamp);
+}
+
+void Arduino_DebugUtils::printDebugLabel(int const debug_level)
+{
+  static char const * DEBUG_MODE_STRING[5] =
+  {
+    "[DBG_ERROR  ] ",
+    "[DBG_WARNING] ",
+    "[DBG_INFO   ] ",
+    "[DBG_DEBUG  ] ",
+    "[DBG_VERBOSE] ",
+  };
+
+  bool is_valid_debug_level = (debug_level >= DBG_ERROR) && (debug_level <= DBG_VERBOSE);
+  if (!is_valid_debug_level)
+    return;
+
+  _debug_output_stream->print(DEBUG_MODE_STRING[debug_level]);
 }
 
 bool Arduino_DebugUtils::shouldPrint(int const debug_level) const
