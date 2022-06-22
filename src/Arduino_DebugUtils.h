@@ -38,6 +38,7 @@ static int const DBG_DEBUG   =  3;
 static int const DBG_VERBOSE =  4;
 
 void setDebugMessageLevel(int const debug_level);
+int  getDebugMessageLevel();
 
 /******************************************************************************
    CLASS DECLARATION
@@ -50,6 +51,7 @@ class Arduino_DebugUtils {
     Arduino_DebugUtils();
 
     void setDebugLevel(int const debug_level);
+    int  getDebugLevel() const;
 
     void setDebugOutputStream(Stream * stream);
 

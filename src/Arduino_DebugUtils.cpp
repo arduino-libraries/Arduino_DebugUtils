@@ -47,6 +47,10 @@ void Arduino_DebugUtils::setDebugLevel(int const debug_level) {
   _debug_level = debug_level;
 }
 
+int Arduino_DebugUtils::getDebugLevel() const {
+  return _debug_level;
+}
+
 void Arduino_DebugUtils::setDebugOutputStream(Stream * stream) {
   _debug_output_stream = stream;
 }
@@ -142,6 +146,11 @@ bool Arduino_DebugUtils::shouldPrint(int const debug_level) const
  ******************************************************************************/
 
 Arduino_DebugUtils Debug;
+
 void setDebugMessageLevel(int const debug_level) {
   Debug.setDebugLevel(debug_level);
+}
+
+int getDebugMessageLevel() {
+  return Debug.getDebugLevel();
 }
