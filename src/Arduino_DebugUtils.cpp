@@ -36,6 +36,7 @@ Arduino_DebugUtils::Arduino_DebugUtils() {
   timestampOff();
   newlineOn();
   debugLabelOff();
+  formatTimestampOff();
   setDebugLevel(DEFAULT_DEBUG_LEVEL);
   setDebugOutputStream(DEFAULT_OUTPUT_STREAM);
 }
@@ -70,6 +71,14 @@ void Arduino_DebugUtils::debugLabelOn() {
 
 void Arduino_DebugUtils::debugLabelOff() {
   _print_debug_label = false;
+}
+
+void Arduino_DebugUtils::formatTimestampOn() {
+  _format_timestamp_on = true;
+}
+
+void Arduino_DebugUtils::formatTimestampOff() {
+  _format_timestamp_on = false;
 }
 
 void Arduino_DebugUtils::timestampOn() {
@@ -146,8 +155,39 @@ void Arduino_DebugUtils::vPrint(char const * fmt, va_list args) {
 
 void Arduino_DebugUtils::printTimestamp()
 {
-  char timestamp[20];
-  snprintf(timestamp, 20, "[ %lu ] ", millis());
+  char timestamp[32];
+
+  if (_format_timestamp_on)
+  {
+    auto    const  msCount      = millis();
+
+    uint16_t const milliseconds = msCount % 1000;           // ms remaining when converted to seconds
+    uint16_t const allSeconds   = msCount / 1000;           // total number of seconds to calculate remaining values
+
+    uint16_t const hours            = allSeconds / 3600;    // convert seconds to hours
+    uint16_t const secondsRemaining = allSeconds % 3600;    // seconds left over
+
+    uint16_t const minutes  = secondsRemaining / 60 ;       // convert seconds left over to minutes
+    uint16_t const seconds  = secondsRemaining % 60;        // seconds left over
+
+    snprintf(timestamp, sizeof(timestamp),                  // "prints" formatted output to a char array (string)
+                "[ "
+                "%02d:"   //HH:
+                "%02d:"   //MM:
+                "%02d."   //SS.
+                "%03d"    //MMM
+                " ] ",
+                hours,
+                minutes,
+                seconds,
+                milliseconds
+            );
+  }
+  else
+  {
+    snprintf(timestamp, sizeof(timestamp), "[ %lu ] ", millis());
+  }
+
   _debug_output_stream->print(timestamp);
 }
 
