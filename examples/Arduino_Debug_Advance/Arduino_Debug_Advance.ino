@@ -24,7 +24,7 @@ void setup() {
 int i = 0;
 
 void loop() {
-  Debug.print(DBG_VERBOSE, "i = %d", i);
+  DEBUG_VERBOSE("i = %d", i);
   i++;
   delay(1000);
 }
