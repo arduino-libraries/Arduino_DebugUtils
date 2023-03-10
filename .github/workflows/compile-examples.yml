@@ -55,7 +55,7 @@ jobs:
             platforms: |
               - name: arduino:samd
             softwareserial: false
-          - fqbn: arduino:mbed_portenta:envie_m4
+          - fqbn: arduino:mbed_portenta:envie_m7:target_core=cm4
             platforms: |
               - name: arduino:mbed_portenta
             softwareserial: false
