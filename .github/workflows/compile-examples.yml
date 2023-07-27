@@ -71,6 +71,30 @@ jobs:
             platforms: |
               - name: arduino:mbed_nano
             softwareserial: false
+          - fqbn: arduino:mbed_nicla:nicla_vision
+            platforms: |
+              - name: arduino:mbed_nicla
+            softwareserial: false
+          - fqbn: arduino:mbed_opta:opta
+            platforms: |
+              - name: arduino:mbed_opta
+            softwareserial: false
+          - fqbn: arduino:mbed_giga:giga
+            platforms: |
+              - name: arduino:mbed_giga
+            softwareserial: false
+          - fqbn: arduino:renesas_portenta:portenta_c33
+            platforms: |
+              - name: arduino:renesas_portenta
+            softwareserial: false
+          - fqbn: arduino:renesas_uno:unor4wifi
+            platforms: |
+              - name: arduino:renesas_uno
+            softwareserial: false
+          - fqbn: arduino:esp32:nano_nora
+            platforms: |
+              - name: arduino:esp32
+            softwareserial: false
 
         # Make board type-specific customizations to the matrix jobs
         include:
