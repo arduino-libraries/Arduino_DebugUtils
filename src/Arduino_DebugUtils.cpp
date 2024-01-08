@@ -130,6 +130,10 @@ void Arduino_DebugUtils::print(int const debug_level, const __FlashStringHelper 
  ******************************************************************************/
 
 void Arduino_DebugUtils::vPrint(char const * fmt, va_list args) {
+  
+  va_list args_copy;
+  va_copy(args_copy, args);
+  
   // calculate required buffer length
   int msg_buf_size = vsnprintf(nullptr, 0, fmt, args) + 1; // add one for null terminator
 #if __STDC_NO_VLA__ == 1
@@ -139,7 +143,8 @@ void Arduino_DebugUtils::vPrint(char const * fmt, va_list args) {
   char msg_buf[msg_buf_size];
 #endif
 
-  vsnprintf(msg_buf, msg_buf_size, fmt, args);
+  vsnprintf(msg_buf, msg_buf_size, fmt, args_copy);
+  va_end(args_copy);
 
   if (_newline_on) {
     _debug_output_stream->println(msg_buf);
