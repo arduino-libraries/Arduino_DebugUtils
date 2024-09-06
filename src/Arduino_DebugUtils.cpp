@@ -25,7 +25,7 @@
    INPUT BUFFER
  ******************************************************************************/
 
-#define COMMAND_BUFFER_SIZE 50  // Define a reasonable size for the input buffer
+#define COMMAND_BUFFER_SIZE 30  // Define a reasonable size for the input buffer
 char commandBuffer[COMMAND_BUFFER_SIZE];
 
 /******************************************************************************
@@ -96,8 +96,7 @@ void Arduino_DebugUtils::timestampOff() {
   _timestamp_on = false;
 }
 
-void Arduino_DebugUtils::print(int const debug_level, const char * fmt, ...)
-{
+void Arduino_DebugUtils::print(int const debug_level, const char * fmt, ...){
   if (!shouldPrint(debug_level))
     return;
 
@@ -113,8 +112,7 @@ void Arduino_DebugUtils::print(int const debug_level, const char * fmt, ...)
   va_end(args);
 }
 
-void Arduino_DebugUtils::print(int const debug_level, const __FlashStringHelper * fmt, ...)
-{
+void Arduino_DebugUtils::print(int const debug_level, const __FlashStringHelper * fmt, ...){
   if (!shouldPrint(debug_level))
     return;
 
@@ -132,8 +130,7 @@ void Arduino_DebugUtils::print(int const debug_level, const __FlashStringHelper 
   va_end(args);
 }
 
-void Arduino_DebugUtils::processDebugUpdateLevelCommand() 
-{
+void Arduino_DebugUtils::processDebugConfigCommand(){
   static size_t bufferIndex = 0;  // Index to track buffer position
 
   // Check if the stream is available and has data
@@ -146,42 +143,56 @@ void Arduino_DebugUtils::processDebugUpdateLevelCommand()
       commandBuffer[bufferIndex] = '\0';  // Null-terminate the string
 
       // Compare C-strings for each command
-      if (strcmp(commandBuffer, "V") == 0 || strcmp(commandBuffer, "VERBOSE") == 0)
-      {
+      if (strcmp(commandBuffer, "V") == 0 || strcmp(commandBuffer, "VERBOSE") == 0) {
         setDebugLevel(DBG_VERBOSE);
         _debug_io_stream->println("Debug level set to VERBOSE.");
-      }
-      else if (strcmp(commandBuffer, "D") == 0 || strcmp(commandBuffer, "DEBUG") == 0)
-      {
+      } else if (strcmp(commandBuffer, "D") == 0 || strcmp(commandBuffer, "DEBUG") == 0) {
         setDebugLevel(DBG_INFO);
         _debug_io_stream->println("Debug level set to DEBUG.");
-      }
-      else if (strcmp(commandBuffer, "I") == 0 || strcmp(commandBuffer, "INFO") == 0)
-      {
+      } else if (strcmp(commandBuffer, "I") == 0 || strcmp(commandBuffer, "INFO") == 0) {
         setDebugLevel(DBG_INFO);
         _debug_io_stream->println("Debug level set to INFO.");
-      }
-      else if (strcmp(commandBuffer, "W") == 0 || strcmp(commandBuffer, "WARNING") == 0)
-      {
+      } else if (strcmp(commandBuffer, "W") == 0 || strcmp(commandBuffer, "WARNING") == 0) {
         setDebugLevel(DBG_WARNING);
         _debug_io_stream->println("Debug level set to WARNING.");
-      }
-      else if (strcmp(commandBuffer, "E") == 0 || strcmp(commandBuffer, "ERROR") == 0)
-      {
+      } else if (strcmp(commandBuffer, "E") == 0 || strcmp(commandBuffer, "ERROR") == 0) {
         setDebugLevel(DBG_ERROR);
         _debug_io_stream->println("Debug level set to ERROR.");
-      }
-      else
-      {
-        _debug_io_stream->println("Invalid command. Use V,D,I,W,E or VERBOSE, DEBUG, INFO, WARNING, or ERROR.");
+      } else if (strcmp(commandBuffer, "N") == 0 || strcmp(commandBuffer, "NONE") == 0) {
+        setDebugLevel(DBG_NONE);
+        _debug_io_stream->println("Debug level set to NONE.");
+      } else if (strcmp(commandBuffer, "T") == 0 || strcmp(commandBuffer, "TIMESTAMP") == 0) {
+        if (_timestamp_on) {
+          timestampOff();
+          _debug_io_stream->println("TIMESTAMPS set to OFF.");
+        } else {
+          timestampOn();
+          _debug_io_stream->println("TIMESTAMPS set to ON.");
+        }
+      } else if (strcmp(commandBuffer, "N") == 0 || strcmp(commandBuffer, "NEWLINE") == 0) {
+        if (_newline_on) {
+          newlineOff();
+          _debug_io_stream->println("NEWLINE set to OFF.");
+        } else {
+          newlineOn();
+          _debug_io_stream->println("NEWLINE set to ON.");
+        }
+      } else if (strcmp(commandBuffer, "L") == 0 || strcmp(commandBuffer, "LABEL") == 0) {
+        if (_print_debug_label) {
+          debugLabelOff();
+          _debug_io_stream->println("DEBUG LABEL set to OFF.");
+        } else {
+          debugLabelOn();
+          _debug_io_stream->println("DEBUG LABEL set to ON.");
+        }
+      } else {
+        _debug_io_stream->println("Invalid command. Use VERBOSE, DEBUG, INFO, WARNING, ERROR, NONE or V,D,I,W,E,N. LABEL, TIMESTAMP, NEWLINE or L,T,N.");
       }
 
       // Clear the buffer for the next command
       bufferIndex = 0;
       commandBuffer[0] = '\0';
-    }
-    else if (incomingChar != '\r')
-    {
+    } else if (incomingChar != '\r') {
       // Add the character to the buffer if it's not a carriage return
       if (bufferIndex < COMMAND_BUFFER_SIZE - 1)
       {
