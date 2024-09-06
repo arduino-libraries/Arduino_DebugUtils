@@ -70,6 +70,7 @@ class Arduino_DebugUtils {
     void print(int const debug_level, const char * fmt, ...);
     void print(int const debug_level, const __FlashStringHelper * fmt, ...);
 
+    void processDebugUpdateLevelCommand();   
 
   private:
 
@@ -78,7 +79,7 @@ class Arduino_DebugUtils {
     bool      _print_debug_label;
     bool      _format_timestamp_on;
     int       _debug_level;
-    Stream *  _debug_output_stream;
+    Stream *  _debug_io_stream;
 
     void vPrint(char const * fmt, va_list args);
     void printTimestamp();
