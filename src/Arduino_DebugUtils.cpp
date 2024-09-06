@@ -169,7 +169,7 @@ void Arduino_DebugUtils::processDebugConfigCommand(){
           timestampOn();
           _debug_io_stream->println("TIMESTAMPS set to ON.");
         }
-      } else if (strcmp(commandBuffer, "N") == 0 || strcmp(commandBuffer, "NEWLINE") == 0) {
+      } else if (strcmp(commandBuffer, "C") == 0 || strcmp(commandBuffer, "NEWLINE") == 0) { // Shortcut is C for Carriage Return. N Already used for NONE
         if (_newline_on) {
           newlineOff();
           _debug_io_stream->println("NEWLINE set to OFF.");
@@ -186,7 +186,7 @@ void Arduino_DebugUtils::processDebugConfigCommand(){
           _debug_io_stream->println("DEBUG LABEL set to ON.");
         }
       } else {
-        _debug_io_stream->println("Invalid command. Use VERBOSE, DEBUG, INFO, WARNING, ERROR, NONE or V,D,I,W,E,N. LABEL, TIMESTAMP, NEWLINE or L,T,N.");
+        _debug_io_stream->println("Invalid command. Use V|VERBOSE, D|DEBUG, I|INFO, W|WARNING, E|ERROR, N|NONE or L|LABEL, T|TIMESTAMP, C|NEWLINE.");
       }
 
       // Clear the buffer for the next command
