@@ -23,12 +23,22 @@
  ******************************************************************************/
 
 #include <Arduino.h>
-
 #include <stdarg.h>
 
 /******************************************************************************
    CONSTANTS
  ******************************************************************************/
+
+#ifndef ARDUINO_DEBUG_UTILS_MAX_MODULES
+// The global debug level is stored at index 0, so the maximum number of modules is ARDUINO_DEBUG_UTILS_MAX_MODULES+1
+  #define ARDUINO_DEBUG_UTILS_MAX_MODULES 20 
+#endif
+
+#ifndef ARDUINO_DEBUG_UTILS_MODULE_LABEL_SIZE
+  #define ARDUINO_DEBUG_UTILS_MODULE_LABEL_SIZE 10 // Define the maximum size of the module label. Can be overridden in the project
+#endif
+
+#define COMMAND_BUFFER_SIZE 20
 
 static int const DBG_NONE    = -1;
 static int const DBG_ERROR   =  0;
@@ -49,42 +59,73 @@ class Arduino_DebugUtils {
   public:
 
     Arduino_DebugUtils();
+    
+    void setDebugOutputStream(Stream * stream); // Set the debug output stream - retained for backward compatibility
+    void setDebugIOStream(Stream * stream); // Set the debug input/output stream
 
-    void setDebugLevel(int const debug_level);
-    int  getDebugLevel() const;
+    void setDebugLevel(int const debug_level);  // Set the global debug level
+    void setDebugLevel(int const module_id, int const debug_level); // Set the debug level for a specific module
+    void setDebugLevelAll(int const debug_level); // Set the same debug level for all modules
+    int  getDebugLevel() const; // Get the global debug level
+    int  getDebugLevel(int const module_id) const; // Get the debug level for a specific module
+    String getDebugLevelLabel(int const debug_level) const; // Get the debug level label
 
-    void setDebugOutputStream(Stream * stream);
+    void setModuleLabel(int const module_id, const char* label); // Set the label for a specific module
+    String getModuleLabel(int const module_id); // Get the label for a specific module
+    
+    void moduleLabelsOn(); // Turn on display of module labels
+    void moduleLabelsOff(); // Turn off display of module labels
 
-    void timestampOn();
-    void timestampOff();
+    // void moduleLabelOn(const int module_id); // Turn on display of the label for a specific module
+    // void moduleLabelOff(const int module_id); // Turn off display of the label for a specific module
 
-    void newlineOn();
-    void newlineOff();
+    void timestampOn(); // Turn on display of timestamp
+    void timestampOff(); // Turn off display of timestamp
+    void formatTimestampOn(); // Turn on display of formatted timestamp - show [HH:MM:SS.mmm] 
+    void formatTimestampOff(); // Turn off display of formatted timestamp - show [ms]
 
-    void debugLabelOn();
-    void debugLabelOff();
+    void newlineOn(); // Turn on newline after each print
+    void newlineOff(); // Turn off newline after each print
 
-    void formatTimestampOn();
-    void formatTimestampOff();
+    void debugLabelOn();  // Turn on display of debug level label
+    // void debugLabelOn(int const debug_level); // Turn on display of debug level label for a specific debug level - Future use
+    void debugLabelOff(); // Turn off display of debug level label
+    // void debugLabelOff(int const debug_level); // Turn off display of debug level label for a specific debug level - Future use
 
     void print(int const debug_level, const char * fmt, ...);
     void print(int const debug_level, const __FlashStringHelper * fmt, ...);
+
+    void print(int const module_id, int const debug_level, const char * fmt, ...);
+    void print(int const module_id, int const debug_level, const __FlashStringHelper * fmt, ...);
 
     void processDebugConfigCommand();   
 
   private:
 
-    bool      _timestamp_on;
-    bool      _newline_on;
-    bool      _print_debug_label;
-    bool      _format_timestamp_on;
-    int       _debug_level;
     Stream *  _debug_io_stream;
+
+    char      _commandBuffer[COMMAND_BUFFER_SIZE]; // Buffer to store config commands  
+
+    bool      _timestamp_on;
+    bool      _format_timestamp_on; // Format the timestamp as [HH:MM:SS.mmm] instead of [ms]
+    bool      _newline_on;
+    bool      _print_debug_level_label; // Display the debug level label for each print
+    bool      _print_module_labels; // Display the module label for each print
+
+    // int    _debug_global_level; // Not needed - stored as index 0 in _moduleDebugLevel
+    int       _moduleDebugLevel[ARDUINO_DEBUG_UTILS_MAX_MODULES+1];  // Array to store debug levels for each module. Index 0 is the global debug level
+    char       _moduleLabel[ARDUINO_DEBUG_UTILS_MAX_MODULES+1][ARDUINO_DEBUG_UTILS_MODULE_LABEL_SIZE];  // Array to store labels for each module
+    //bool     _moduleLabelOn[ARDUINO_DEBUG_UTILS_MAX_MODULES+1];  // Array to store if each module label is on or off - Future use
+    
+    // int getModuleIndex(int const module_id);  // Helper function to get the module index
 
     void vPrint(char const * fmt, va_list args);
     void printTimestamp();
     void printDebugLabel(int const debug_level);
     bool shouldPrint(int const debug_level) const;
+    bool shouldPrint(int const module_id, int const debug_level) const;
+
+    void printDebugStatus();
 
 };
 
