@@ -26,19 +26,16 @@
 
 #include <stdarg.h>
 
-/******************************************************************************
-   CONSTANTS
- ******************************************************************************/
-
-static int const DBG_NONE    = -1;
-static int const DBG_ERROR   =  0;
-static int const DBG_WARNING =  1;
-static int const DBG_INFO    =  2;
-static int const DBG_DEBUG   =  3;
-static int const DBG_VERBOSE =  4;
-
 void setDebugMessageLevel(int const debug_level);
 int  getDebugMessageLevel();
+
+#define DEBUG_LEVEL_NONE                   0x0000
+#define DEBUG_LEVEL_ERROR                  0x0001
+#define DEBUG_LEVEL_WARNING                0x0003
+#define DEBUG_LEVEL_INFO                   0x0007
+#define DEBUG_LEVEL_DEBUG                  0x000F
+#define DEBUG_LEVEL_VERBOSE                0x001F
+#define DEBUG_LEVEL_ALL                    0xFFFF
 
 /******************************************************************************
    CLASS DECLARATION
@@ -86,6 +83,18 @@ class Arduino_DebugUtils {
     bool shouldPrint(int const debug_level) const;
 
 };
+
+/******************************************************************************
+   CONSTANTS
+ ******************************************************************************/
+
+static constexpr int DBG_NONE    = DEBUG_LEVEL_NONE;
+static constexpr int DBG_ERROR   = DEBUG_LEVEL_ERROR;
+static constexpr int DBG_WARNING = DEBUG_LEVEL_WARNING;
+static constexpr int DBG_INFO    = DEBUG_LEVEL_INFO;
+static constexpr int DBG_DEBUG   = DEBUG_LEVEL_DEBUG;
+static constexpr int DBG_VERBOSE = DEBUG_LEVEL_VERBOSE;
+static constexpr int DBG_ALL     = DEBUG_LEVEL_ALL;
 
 /******************************************************************************
    EXTERN
