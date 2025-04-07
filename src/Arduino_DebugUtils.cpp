@@ -18,8 +18,8 @@
   CONSTANTS
  ******************************************************************************/
 
-static int const DEFAULT_DEBUG_LEVEL   = DBG_INFO;
-static Stream *  DEFAULT_OUTPUT_STREAM = &Serial;
+static Arduino_DebugUtils::Level const DEFAULT_DEBUG_LEVEL  = DBG_INFO;
+static Stream *  DEFAULT_OUTPUT_STREAM                      = &Serial;
 
 /******************************************************************************
   CTOR/DTOR
@@ -38,11 +38,11 @@ Arduino_DebugUtils::Arduino_DebugUtils() {
   PUBLIC MEMBER FUNCTIONS
  ******************************************************************************/
 
-void Arduino_DebugUtils::setDebugLevel(int const debug_level) {
+void Arduino_DebugUtils::setDebugLevel(Arduino_DebugUtils::Level const debug_level) {
   _debug_level = debug_level;
 }
 
-int Arduino_DebugUtils::getDebugLevel() const {
+Arduino_DebugUtils::Level Arduino_DebugUtils::getDebugLevel() const {
   return _debug_level;
 }
 
@@ -82,7 +82,7 @@ void Arduino_DebugUtils::timestampOff() {
   _timestamp_on = false;
 }
 
-void Arduino_DebugUtils::print(int const debug_level, const char * fmt, ...)
+void Arduino_DebugUtils::print(Arduino_DebugUtils::Level const debug_level, const char * fmt, ...)
 {
   if (!shouldPrint(debug_level))
     return;
@@ -99,7 +99,7 @@ void Arduino_DebugUtils::print(int const debug_level, const char * fmt, ...)
   va_end(args);
 }
 
-void Arduino_DebugUtils::print(int const debug_level, const __FlashStringHelper * fmt, ...)
+void Arduino_DebugUtils::print(Arduino_DebugUtils::Level const debug_level, const __FlashStringHelper * fmt, ...)
 {
   if (!shouldPrint(debug_level))
     return;
@@ -189,7 +189,7 @@ void Arduino_DebugUtils::printTimestamp()
   _debug_output_stream->print(timestamp);
 }
 
-void Arduino_DebugUtils::printDebugLabel(int const debug_level)
+void Arduino_DebugUtils::printDebugLabel(Arduino_DebugUtils::Level const debug_level)
 {
   static char const * DEBUG_MODE_STRING[5] =
   {
@@ -200,16 +200,40 @@ void Arduino_DebugUtils::printDebugLabel(int const debug_level)
     "[DBG_VERBOSE] ",
   };
 
-  bool is_valid_debug_level = (debug_level >= DBG_ERROR) && (debug_level <= DBG_VERBOSE);
-  if (!is_valid_debug_level)
-    return;
+  const char* level_str = nullptr;
+  switch(debug_level) {
+  case Arduino_DebugUtils::Level::Error:
+    level_str = DEBUG_MODE_STRING[0];
+    break;
+  case Arduino_DebugUtils::Level::Warning:
+    level_str = DEBUG_MODE_STRING[1];
+    break;
+  case Arduino_DebugUtils::Level::Info:
+    level_str = DEBUG_MODE_STRING[2];
+    break;
+  case Arduino_DebugUtils::Level::Debug:
+    level_str = DEBUG_MODE_STRING[3];
+    break;
+  case Arduino_DebugUtils::Level::Verbose:
+    level_str = DEBUG_MODE_STRING[4];
+    break;
+  case Arduino_DebugUtils::Level::None:
+  case Arduino_DebugUtils::Level::All:
+  default:
+    break;
+  }
 
-  _debug_output_stream->print(DEBUG_MODE_STRING[debug_level]);
+  if(level_str != nullptr) {
+    _debug_output_stream->print(level_str);
+  }
 }
 
-bool Arduino_DebugUtils::shouldPrint(int const debug_level) const
+bool Arduino_DebugUtils::shouldPrint(Arduino_DebugUtils::Level const debug_level) const
 {
-  return ((debug_level >= DBG_ERROR) && (debug_level <= DBG_VERBOSE) && (debug_level <= _debug_level));
+  uint_fast16_t dl = static_cast<uint_fast16_t>(debug_level);
+  uint_fast16_t _dl = static_cast<uint_fast16_t>(_debug_level);
+
+  return _dl & dl == dl;
 }
 
 /******************************************************************************
@@ -219,9 +243,9 @@ bool Arduino_DebugUtils::shouldPrint(int const debug_level) const
 Arduino_DebugUtils Debug;
 
 void setDebugMessageLevel(int const debug_level) {
-  Debug.setDebugLevel(debug_level);
+  Debug.setDebugLevel(static_cast<Arduino_DebugUtils::Level>(debug_level));
 }
 
 int getDebugMessageLevel() {
-  return Debug.getDebugLevel();
+  return static_cast<int>(Debug.getDebugLevel());
 }
