@@ -130,10 +130,10 @@ void Arduino_DebugUtils::print(Arduino_DebugUtils::Level const debug_level, cons
  ******************************************************************************/
 
 void Arduino_DebugUtils::vPrint(char const * fmt, va_list args) {
-  
+
   va_list args_copy;
   va_copy(args_copy, args);
-  
+
   // calculate required buffer length
   int msg_buf_size = vsnprintf(nullptr, 0, fmt, args) + 1; // add one for null terminator
 #if __STDC_NO_VLA__ == 1
