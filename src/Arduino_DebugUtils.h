@@ -106,24 +106,39 @@ extern Arduino_DebugUtils Debug;
  * DEFINE
  **************************************************************************************/
 
-#ifndef DEBUG_ERROR
-#  define DEBUG_ERROR(fmt, ...) Debug.print(DBG_ERROR, fmt, ## __VA_ARGS__)
+
+#ifndef DEBUG_LEVEL
+#  define DEBUG_LEVEL DEBUG_LEVEL_ALL
 #endif
 
-#ifndef DEBUG_WARNING
-#  define DEBUG_WARNING(fmt, ...) Debug.print(DBG_WARNING, fmt, ## __VA_ARGS__)
+#if !defined(DEBUG_ERROR) && ((DEBUG_LEVEL & DEBUG_LEVEL_ERROR) == DEBUG_LEVEL_ERROR)
+#  define DEBUG_ERROR(fmt, ...)       Debug.print(DBG_ERROR, fmt, ## __VA_ARGS__)
+#else
+#  define DEBUG_ERROR(fmt, ...)       (void) 0
 #endif
 
-#ifndef DEBUG_INFO
-#  define DEBUG_INFO(fmt, ...) Debug.print(DBG_INFO, fmt, ## __VA_ARGS__)
+#if !defined(DEBUG_WARNING) && ((DEBUG_LEVEL & DEBUG_LEVEL_WARNING) == DEBUG_LEVEL_WARNING)
+#  define DEBUG_WARNING(fmt, ...)     Debug.print(DBG_WARNING, fmt, ## __VA_ARGS__)
+#else
+#  define DEBUG_WARNING(fmt, ...)     (void) 0
 #endif
 
-#ifndef DEBUG_DEBUG
-#  define DEBUG_DEBUG(fmt, ...) Debug.print(DBG_DEBUG, fmt, ## __VA_ARGS__)
+#if !defined(DEBUG_INFO) && ((DEBUG_LEVEL & DEBUG_LEVEL_INFO) == DEBUG_LEVEL_INFO)
+#  define DEBUG_INFO(fmt, ...)        Debug.print(DBG_INFO, fmt, ## __VA_ARGS__)
+#else
+#  define DEBUG_INFO(fmt, ...)        (void) 0
 #endif
 
-#ifndef DEBUG_VERBOSE
-#  define DEBUG_VERBOSE(fmt, ...) Debug.print(DBG_VERBOSE, fmt, ## __VA_ARGS__)
+#if !defined(DEBUG_DEBUG) && ((DEBUG_LEVEL & DEBUG_LEVEL_DEBUG) == DEBUG_LEVEL_DEBUG)
+#  define DEBUG_DEBUG(fmt, ...)       Debug.print(DBG_DEBUG, fmt, ## __VA_ARGS__)
+#else
+#  define DEBUG_DEBUG(fmt, ...)       (void) 0
+#endif
+
+#if !defined(DEBUG_VERBOSE) && ((DEBUG_LEVEL & DEBUG_LEVEL_VERBOSE) == DEBUG_LEVEL_VERBOSE)
+#  define DEBUG_VERBOSE(fmt, ...)     Debug.print(DBG_VERBOSE, fmt, ## __VA_ARGS__)
+#else
+#  define DEBUG_VERBOSE(fmt, ...)     (void) 0
 #endif
 
 #endif /* ARDUINO_DEBUG_UTILS_H_ */
