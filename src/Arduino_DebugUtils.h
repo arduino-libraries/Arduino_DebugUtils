@@ -26,9 +26,6 @@
 
 #include <stdarg.h>
 
-void setDebugMessageLevel(int const debug_level);
-int  getDebugMessageLevel();
-
 #define DEBUG_LEVEL_NONE                   0x0000
 #define DEBUG_LEVEL_ERROR                  0x0001
 #define DEBUG_LEVEL_WARNING                0x0003
@@ -92,6 +89,9 @@ class Arduino_DebugUtils {
     inline bool shouldPrint(Level const debug_level) const;
 
 };
+
+void setDebugMessageLevel(Arduino_DebugUtils::Level const debug_level);
+Arduino_DebugUtils::Level  getDebugMessageLevel();
 
 /******************************************************************************
    CONSTANTS

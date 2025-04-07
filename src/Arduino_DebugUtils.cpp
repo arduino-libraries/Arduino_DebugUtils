@@ -249,10 +249,10 @@ bool Arduino_DebugUtils::shouldPrint(Arduino_DebugUtils::Level const debug_level
 
 Arduino_DebugUtils Debug;
 
-void setDebugMessageLevel(int const debug_level) {
-  Debug.setDebugLevel(static_cast<Arduino_DebugUtils::Level>(debug_level));
+void setDebugMessageLevel(Arduino_DebugUtils::Level const debug_level) {
+  Debug.setDebugLevel(debug_level);
 }
 
-int getDebugMessageLevel() {
-  return static_cast<int>(Debug.getDebugLevel());
+Arduino_DebugUtils::Level getDebugMessageLevel() {
+  return Debug.getDebugLevel();
 }
