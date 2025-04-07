@@ -44,11 +44,20 @@ int  getDebugMessageLevel();
 class Arduino_DebugUtils {
 
   public:
+    enum class Level: uint_fast16_t {
+      None                    = DEBUG_LEVEL_NONE,
+      Error                   = DEBUG_LEVEL_ERROR,
+      Warning                 = DEBUG_LEVEL_WARNING,
+      Info                    = DEBUG_LEVEL_INFO,
+      Verbose                 = DEBUG_LEVEL_VERBOSE,
+      Debug                   = DEBUG_LEVEL_DEBUG,
+      All                     = DEBUG_LEVEL_ALL,
+    };
 
     Arduino_DebugUtils();
 
-    void setDebugLevel(int const debug_level);
-    int  getDebugLevel() const;
+    void setDebugLevel(Level const debug_level);
+    Arduino_DebugUtils::Level getDebugLevel() const;
 
     void setDebugOutputStream(Stream * stream);
 
@@ -64,8 +73,8 @@ class Arduino_DebugUtils {
     void formatTimestampOn();
     void formatTimestampOff();
 
-    void print(int const debug_level, const char * fmt, ...);
-    void print(int const debug_level, const __FlashStringHelper * fmt, ...);
+    void print(Level const debug_level, const char * fmt, ...);
+    void print(Level const debug_level, const __FlashStringHelper * fmt, ...);
 
 
   private:
@@ -74,13 +83,13 @@ class Arduino_DebugUtils {
     bool      _newline_on;
     bool      _print_debug_label;
     bool      _format_timestamp_on;
-    int       _debug_level;
+    Level     _debug_level;
     Stream *  _debug_output_stream;
 
     void vPrint(char const * fmt, va_list args);
     void printTimestamp();
-    void printDebugLabel(int const debug_level);
-    bool shouldPrint(int const debug_level) const;
+    void printDebugLabel(Arduino_DebugUtils::Level const debug_level);
+    inline bool shouldPrint(Level const debug_level) const;
 
 };
 
@@ -88,13 +97,13 @@ class Arduino_DebugUtils {
    CONSTANTS
  ******************************************************************************/
 
-static constexpr int DBG_NONE    = DEBUG_LEVEL_NONE;
-static constexpr int DBG_ERROR   = DEBUG_LEVEL_ERROR;
-static constexpr int DBG_WARNING = DEBUG_LEVEL_WARNING;
-static constexpr int DBG_INFO    = DEBUG_LEVEL_INFO;
-static constexpr int DBG_DEBUG   = DEBUG_LEVEL_DEBUG;
-static constexpr int DBG_VERBOSE = DEBUG_LEVEL_VERBOSE;
-static constexpr int DBG_ALL     = DEBUG_LEVEL_ALL;
+static constexpr Arduino_DebugUtils::Level DBG_NONE    = Arduino_DebugUtils::Level::None;
+static constexpr Arduino_DebugUtils::Level DBG_ERROR   = Arduino_DebugUtils::Level::Error;
+static constexpr Arduino_DebugUtils::Level DBG_WARNING = Arduino_DebugUtils::Level::Warning;
+static constexpr Arduino_DebugUtils::Level DBG_INFO    = Arduino_DebugUtils::Level::Info;
+static constexpr Arduino_DebugUtils::Level DBG_DEBUG   = Arduino_DebugUtils::Level::Debug;
+static constexpr Arduino_DebugUtils::Level DBG_VERBOSE = Arduino_DebugUtils::Level::Verbose;
+static constexpr Arduino_DebugUtils::Level DBG_ALL     = Arduino_DebugUtils::Level::All;
 
 /******************************************************************************
    EXTERN
