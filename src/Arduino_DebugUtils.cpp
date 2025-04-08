@@ -247,12 +247,15 @@ bool Arduino_DebugUtils::shouldPrint(Arduino_DebugUtils::Level const debug_level
    CLASS INSTANTIATION
  ******************************************************************************/
 
-Arduino_DebugUtils Debug;
+Arduino_DebugUtils& Arduino_DebugUtils::getInstance() {
+  static Arduino_DebugUtils instance;
+  return instance;
+}
 
 void setDebugMessageLevel(Arduino_DebugUtils::Level const debug_level) {
-  Debug.setDebugLevel(debug_level);
+  Arduino_DebugUtils::getInstance().setDebugLevel(debug_level);
 }
 
 Arduino_DebugUtils::Level getDebugMessageLevel() {
-  return Debug.getDebugLevel();
+  return Arduino_DebugUtils::getInstance().getDebugLevel();
 }
