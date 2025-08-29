@@ -200,11 +200,11 @@ void Arduino_DebugUtils::printDebugLabel(int const debug_level)
 {
   static char const * DEBUG_MODE_STRING[5] =
   {
-    "[DBG_ERROR  ] ",
-    "[DBG_WARNING] ",
-    "[DBG_INFO   ] ",
-    "[DBG_DEBUG  ] ",
-    "[DBG_VERBOSE] ",
+    "[E] ", // Error
+    "[W] ", // Warning
+    "[I] ", // Info
+    "[D] ", // Debug
+    "[V] ", // Verbose
   };
 
   bool is_valid_debug_level = (debug_level >= DBG_ERROR) && (debug_level <= DBG_VERBOSE);
