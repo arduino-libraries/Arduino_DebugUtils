@@ -1,33 +1,25 @@
 /*
-   This file is part of Arduino_DebugUtils.
+  This file is part of the Arduino_DebugUtils library.
 
-   Copyright 2019 ARDUINO SA (http://www.arduino.cc/)
+  Copyright (c) 2019 Arduino SA
 
-   This software is released under the GNU General Public License version 3,
-   which covers the main part of arduino-cli.
-   The terms of this license can be found at:
-   https://www.gnu.org/licenses/gpl-3.0.en.html
-
-   You can be released from the requirements of the above licenses by purchasing
-   a commercial license. Buying such a license is mandatory if you want to modify or
-   otherwise use the software for commercial activities involving the Arduino
-   software without disclosing the source code of your own applications. To purchase
-   a commercial license, send an email to license@arduino.cc.
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
 #ifndef ARDUINO_DEBUG_UTILS_H_
 #define ARDUINO_DEBUG_UTILS_H_
 
 /******************************************************************************
-   INCLUDE
+  INCLUDE
  ******************************************************************************/
 
 #include <Arduino.h>
-
 #include <stdarg.h>
 
 /******************************************************************************
-   CONSTANTS
+  CONSTANTS
  ******************************************************************************/
 
 static int const DBG_NONE    = -1;
@@ -41,7 +33,7 @@ void setDebugMessageLevel(int const debug_level);
 int  getDebugMessageLevel();
 
 /******************************************************************************
-   CLASS DECLARATION
+  CLASS DECLARATION
  ******************************************************************************/
 
 class Arduino_DebugUtils {
@@ -88,14 +80,14 @@ class Arduino_DebugUtils {
 };
 
 /******************************************************************************
-   EXTERN
+  EXTERN
  ******************************************************************************/
 
 extern Arduino_DebugUtils Debug;
 
-/**************************************************************************************
- * DEFINE
- **************************************************************************************/
+/******************************************************************************
+  DEFINE
+ ******************************************************************************/
 
 #ifndef DEBUG_ERROR
 #  define DEBUG_ERROR(fmt, ...) Debug.print(DBG_ERROR, fmt, ## __VA_ARGS__)
