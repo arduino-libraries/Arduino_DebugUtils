@@ -10,5 +10,6 @@ int i = 0;
 void loop() {
   DEBUG_INFO("i = %d", i);
   i++;
+  Debug.processDebugConfigCommand();
   delay(1000);
 }
