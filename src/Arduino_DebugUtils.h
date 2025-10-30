@@ -61,7 +61,7 @@ class Arduino_DebugUtils {
 
     void print(int const debug_level, const char * fmt, ...);
     void print(int const debug_level, const __FlashStringHelper * fmt, ...);
-
+    void print(int const debug_level, const char * fmt, va_list args);
 
   private:
 
