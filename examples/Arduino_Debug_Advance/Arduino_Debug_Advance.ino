@@ -26,5 +26,6 @@ int i = 0;
 void loop() {
   DEBUG_VERBOSE("i = %d", i);
   i++;
+  Debug.processDebugConfigCommand();
   delay(1000);
 }
